@@ -1,0 +1,33 @@
+---
+- name: Create zfs pool
+  command: zpool create nvmer0 /dev/nvme0n1 /dev/nvme1n1 /dev/nvme2n1 /dev/nvme3n1
+  ignore_errors: yes
+
+- name: Create 32byte random file
+  command: openssl rand -out /etc/ssl/private/zfs 32
+  ignore_errors: yes
+
+- name: Change file ownership, group and permissions of previous file
+  file:
+    path: /etc/ssl/private/zfs
+    owner: root
+    group: root
+    mode: '0400'
+    attributes: '+i'
+
+- name: Created volume on nvmer0
+  zfs:
+    name: nvmer0/encrypted
+    state: present
+    extra_zfs_properties:
+      #encryption: on
+      #keyformat: raw
+      #keylocation: file:///etc/ssl/private/zfs
+      recordsize: 8K
+
+- name: Add zfs automount to rc-local
+  lineinfile:
+    path: /etc/rc.local
+    line: zfs mount -l nvmer0/encrypted
+    state: present
+

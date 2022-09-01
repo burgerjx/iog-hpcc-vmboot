@@ -32,10 +32,6 @@
   shell: mkfs.xfs /dev/md0p1
   when: encrypted and raid
 
-- name: Encrypt the raid volume
-  shell: cryptsetup /dev/md0 en0
-  when: encrypted and raid
-  
 - name: Add mountpoint to /mnt/nvme
   mount:
     path: /mnt/nvme
@@ -54,9 +50,10 @@
   set_fact:
     encryption: "{{ result.stdout }}"
 
-- debug:
-    var: encryption
-    
+- name: Encrypt the raid volume
+  shell: cryptsetup /dev/md0 en0
+  when: encrypted and raid
+
 - name: Create partition /dev/mapper/en0
   shell: parted /dev/mapper/en0 --script mklabel gpt mkpart xfspart xfs 0% 100%
   when: encrypted and raid

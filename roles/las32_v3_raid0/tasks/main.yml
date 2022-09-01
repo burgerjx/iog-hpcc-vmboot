@@ -32,16 +32,16 @@
 - name: Create mdadm raid device from nvme drives
   shell: mdadm --create --verbose /dev/md0 --level=0 --raid-devices=4 /dev/nvme0n1 /dev/nvme1n1 /dev/nvme2n1 /dev/nvme3n1
   register: raid
-  when: encrypted and raid is succeeded
+  when: encrypted and raid
   ignore_errors: yes
 
 - name: Create partition /dev/mapper/en0
   shell: parted /dev/mapper/en0 --script mklabel gpt mkpart xfspart xfs 0% 100%
-  when: encrypted and raid is succeeded
+  when: encrypted and raid
 
 - name: Format xfs on /dev/mapper/en0
   shell: mkfs.xfs /dev/mapper/en0p1
-  when: encrypted and raid is succeeded
+  when: encrypted and raid
 
 - name: Add mountpoint to /mnt/nvme
   mount:
@@ -50,7 +50,7 @@
     fstype: xfs
     opts: noatime
     state: mounted
-  when: encrypted and raid is succeeded
+  when: encrypted and raid
 
 - name: Add mountpoint of ssd to /mnt/ssd
   mount:

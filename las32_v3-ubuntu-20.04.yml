@@ -7,16 +7,15 @@
       - git
       - lxc
       - net-tools
-      - zfsutils-linux
+      - sysstat
       - fio
-    
-    install_snap:
-    
-    remove_apt:
-    
+      - mdadm
+      - cryptsetup
+    remove_apt: []
+    install_snap: []
     remove_snap:
       - lxd
-    
+    encrypted: yes
   roles:
     - install
     - uninstall

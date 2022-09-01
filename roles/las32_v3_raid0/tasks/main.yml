@@ -1,9 +1,9 @@
 ---
 
 # mount the temporary storage on /dev/sdb1
-- name: Add mountpoint of ssd to /mnt/ssd
+- name: Add mountpoint of ssd to /mnt/sata
   mount:
-    path: /mnt/ssd
+    path: /mnt/sata
     src: /dev/sdb1
     fstype: ext4
     opts: noatime
@@ -49,7 +49,7 @@
 
 - name: Set encryption variable
   set_fact:
-    encryption: "{{ result.stdout }}"
+    encrypted: "{{ result.stdout }}"
 
 - name: Encrypt the raid volume
   shell: cryptsetup /dev/md0 en0

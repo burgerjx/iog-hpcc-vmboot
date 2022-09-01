@@ -11,7 +11,7 @@
 
 # handle the raid setup and encryption of the nvme volumes
 - name: Check if raid volume exists
-  shell: if [[ $(mdadm /dev/md0) ]];then echo yes;else echo no;fi
+  shell: mdadm /dev/md0 >/dev/null && echo no || echo yes
   register: result
   changed_when: false
 
@@ -42,7 +42,7 @@
   when: encrypted and raid
 
 - name: Check if encryption exists
-  shell: if [[ $(cryptsetup list /dev/md0) ]];then echo yes;else echo no;fi
+  shell: cryptsetup list /dev/md0 && echo yes || else no
   register: result
   changed_when: false
 

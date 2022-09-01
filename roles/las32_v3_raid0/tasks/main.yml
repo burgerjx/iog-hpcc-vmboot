@@ -6,6 +6,7 @@
 
 - name: Create partition on /dev/md0
   shell: parted /dev/md0 --script mklabel gpt mkpart xfspart xfs 0% 100%
+  register: partition
   when: encrypted and raid is succeeded
   ignore_errors: yes
 
@@ -15,29 +16,35 @@
 
 - name: Encrypt the raid volume
   shell: cryptsetup /dev/md0 en0
-  when: encrypted and luks and raid is succeeded
-
-- name: Create partition /dev/mapper/en0
-  shell: parted /dev/mapper/en0 --script mklabel gpt mkpart xfspart xfs 0% 100%
-  when: encrypted and luks and raid is succeeded
-
-- name: Format xfs on /dev/mapper/en0
-  shell: mkfs.xfs /dev/mapper/en0p1
-  when: encrypted and luks and raid is succeeded
-
-- name: Add mountpoint to /mnt/nvme
-  mount:
-    path: /mnt/nvme
-    src: /dev/mapper/en0p1
-    fstype: xfs
-    opts: noatime
-    state: mounted
-  when: encrypted and luks and raid is succeeded
+  when: encrypted and raid is succeeded
 
 - name: Add mountpoint to /mnt/nvme
   mount:
     path: /mnt/nvme
     src: /dev/md0p1
+    fstype: xfs
+    opts: noatime
+    state: mounted
+  when: encrypted and raid is succeeded
+
+- name: Create mdadm raid device from nvme drives
+  shell: mdadm --create --verbose /dev/md0 --level=0 --raid-devices=4 /dev/nvme0n1 /dev/nvme1n1 /dev/nvme2n1 /dev/nvme3n1
+  register: raid
+  when: encrypted and raid is succeeded
+  ignore_errors: yes
+
+- name: Create partition /dev/mapper/en0
+  shell: parted /dev/mapper/en0 --script mklabel gpt mkpart xfspart xfs 0% 100%
+  when: encrypted and raid is succeeded
+
+- name: Format xfs on /dev/mapper/en0
+  shell: mkfs.xfs /dev/mapper/en0p1
+  when: encrypted and raid is succeeded
+
+- name: Add mountpoint to /mnt/nvme
+  mount:
+    path: /mnt/nvme
+    src: /dev/mapper/en0p1
     fstype: xfs
     opts: noatime
     state: mounted

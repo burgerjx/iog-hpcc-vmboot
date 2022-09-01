@@ -31,6 +31,7 @@
 - name: Format xfs on /dev/md0p1
   shell: mkfs.xfs /dev/md0p1
   when: encrypted and raid
+  ignore_errors: yes
 
 - name: Add mountpoint to /mnt/nvme
   mount:
@@ -42,7 +43,7 @@
   when: encrypted and raid
 
 - name: Check if encryption exists
-  shell: cryptsetup list /dev/md0 && echo yes || else no
+  shell: cryptsetup status /dev/md0 >/dev/null && echo yes || echo no
   register: result
   changed_when: false
 

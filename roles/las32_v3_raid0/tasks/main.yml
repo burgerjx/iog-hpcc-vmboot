@@ -1,15 +1,4 @@
 ---
-
-# mount the temporary storage on /dev/sdb1
-- name: Add mountpoint of ssd to /mnt/sata
-  mount:
-    path: /mnt/sata
-    src: /dev/sdb1
-    fstype: ext4
-    opts: noatime
-    state: mounted
-
-# handle the raid setup and encryption of the nvme volumes
 - name: Check if raid volume exists
   shell: mdadm /dev/md0 >/dev/null && echo no || echo yes
   register: result
@@ -35,7 +24,7 @@
 
 - name: Add mountpoint to /mnt/nvme
   mount:
-    path: /mnt/nvme
+    path: /data
     src: /dev/md0p1
     fstype: xfs
     opts: noatime
@@ -65,7 +54,7 @@
 
 - name: Add mountpoint to /mnt/nvme
   mount:
-    path: /mnt/nvme
+    path: /data
     src: /dev/mapper/en0p1
     fstype: xfs
     opts: noatime

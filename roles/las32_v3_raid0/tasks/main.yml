@@ -1,4 +1,17 @@
 ---
+- name: Remove default ephemeral mountpoint of /mnt
+  mount:
+    path: /mnt
+    state: absent
+
+- name: Mount temporary SATA as /sata instead
+  mount:
+    path: /sata
+    src: /dev/disk/cloud/azure_resource-part1
+    fstype: auto
+    opts: defaults,nofail,x-systemd.requires=cloud-init.service,_netdev,comment=cloudconfig
+    state: present
+
 - name: Check if raid volume exists
   shell: mdadm /dev/md0 >/dev/null && echo no || echo yes
   register: result
@@ -24,7 +37,7 @@
 
 - name: Add mountpoint to /mnt/nvme
   mount:
-    path: /data
+    path: /nvme
     src: /dev/md0p1
     fstype: xfs
     opts: noatime
@@ -54,7 +67,7 @@
 
 - name: Add mountpoint to /mnt/nvme
   mount:
-    path: /data
+    path: /nvme
     src: /dev/mapper/en0p1
     fstype: xfs
     opts: noatime

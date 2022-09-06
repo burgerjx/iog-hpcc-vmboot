@@ -6,7 +6,7 @@
 
 - name: Mount temporary SATA as /sata instead
   mount:
-    path: /sata
+    path: /containers
     src: /dev/disk/cloud/azure_resource-part1
     fstype: auto
     opts: defaults,nofail,x-systemd.requires=cloud-init.service,_netdev,comment=cloudconfig
@@ -37,7 +37,7 @@
 
 - name: Add mountpoint to /mnt/nvme
   mount:
-    path: /nvme
+    path: /data
     src: /dev/md0p1
     fstype: xfs
     opts: noatime
@@ -67,7 +67,7 @@
 
 - name: Add mountpoint to /mnt/nvme
   mount:
-    path: /nvme
+    path: /data
     src: /dev/mapper/en0p1
     fstype: xfs
     opts: noatime

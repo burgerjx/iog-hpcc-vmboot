@@ -6,6 +6,8 @@
     install_apt:
       - git
       - lxc
+      - lxc-templates
+      - python3-lxc
       - net-tools
       - sysstat
       - fio

@@ -10,7 +10,7 @@
     src: /dev/disk/cloud/azure_resource-part1
     fstype: auto
     opts: defaults,nofail,x-systemd.requires=cloud-init.service,_netdev,comment=cloudconfig
-    state: present
+    state: mounted
 
 - name: Check if raid volume exists
   shell: mdadm /dev/md0 >/dev/null && echo no || echo yes

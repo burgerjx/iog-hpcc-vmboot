@@ -16,10 +16,16 @@
     state: started
     template: download
     template_options: --dist ubuntu --release focal --arch amd64
+    container_command: |
+      sleep 5 #Wait for network interfaces to fully come up
+      apt-get update 2>&1 | tee -a /var/log/startup
+      apt-get install -y git ansible 2>&1 | tee -a /var/log/startup
+      git clone https://github.com/burgerjx/iog-hpcc-vmboot.git /opt/ansible 2>&1 | tee -a /var/log/startup
+      ansible-playbook /opt/ansible/container.yml 2>&1 | tee -a /var/log/startup
     container_config:
       - "lxc.apparmor.profile = unconfined"
       - "lxc.net.1.type=phys"
       - "lxc.net.1.link=eth1"
       - "lxc.net.1.flags=up"
       - "lxc.net.1.ipv4.address=10.0.1.4/24"
-      - "lxc.mount.entry = /nvme nvme none bind,create=dir 0 0"
+      - "lxc.mount.entry = /data data none bind,create=dir 0 0"

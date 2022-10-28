@@ -6,6 +6,9 @@
     force: yes
     state: link
 
+- name: Empty lxc defaults file
+  ansible.builtin.shell: cat /dev/null > /etc/lxc/default.conf
+
 - name: Create a started container
   lxc_container:
     name: test-ubuntu

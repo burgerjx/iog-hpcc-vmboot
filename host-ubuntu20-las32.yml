@@ -13,6 +13,7 @@
       - fio
       - mdadm
       - cryptsetup
+      - dnsmasq
     remove_apt: []
     install_snap: []
     remove_snap:
@@ -23,4 +24,5 @@
     - uninstall
     - rclocal
     - las32_v3_raid0
+    - dnsmasq
     - fusion

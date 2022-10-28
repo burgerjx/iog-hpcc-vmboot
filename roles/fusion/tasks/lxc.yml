@@ -28,5 +28,5 @@
       - "lxc.net.0.link=eth1"
       - "lxc.net.0.flags=up"
       - "lxc.net.0.ipv4.address=10.0.2.4/24"
-      - "lxc.net.0.ipv4.address=10.0.2.1"
+      - "lxc.net.0.ipv4.gateway=10.0.2.1"
       - "lxc.mount.entry = /data data none bind,create=dir 0 0"

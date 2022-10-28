@@ -7,7 +7,9 @@
     state: link
 
 - name: Empty lxc defaults file
-  ansible.builtin.shell: cat /dev/null > /etc/lxc/default.conf
+  shell: cat /dev/null > /etc/lxc/default.conf
+  args:
+    executable: /bin/bash
 
 - name: Create a started container
   lxc_container:

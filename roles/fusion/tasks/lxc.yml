@@ -27,9 +27,9 @@
       - "lxc.apparmor.profile = unconfined"
       - "lxc.net.0.type=phys"
       - "lxc.net.0.link=eth1"
+      - "lxc.net.0.name=eth0"
       - "lxc.net.0.flags=up"
       - "lxc.net.0.ipv4.address=10.0.2.4/24"
-      - "lxc.net.0.ipv4.gateway=10.0.2.1"
       - "lxc.mount.entry = /data data none bind,create=dir 0 0"
 
 - name: Run startup commands on container
@@ -38,6 +38,7 @@
     container_command: |
       date 2>&1 | tee -a /var/log/container-init.log
       sleep 5 #Wait for network interfaces to fully come up
+      ip route add default via 10.0.2.1
       echo "DNS={{ ansible_eth0.ipv4.address  }}" >>/etc/systemd/resolved.conf 2>&1 | tee -a /var/log/container-init.log
       systemctl restart systemd-resolved | tee -a tee -a /var/log/container-init.log
       apt-get update 2>&1 | tee -a /var/log/container-init.log

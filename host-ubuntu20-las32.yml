@@ -19,6 +19,12 @@
     remove_snap:
       - lxd
     encrypted: yes
+    eth1: "{{ ansible_eth1.ipv4.address }}/{{ ansible_eth1.ipv4.netmask }}"
+    eth2: "{{ ansible_eth2.ipv4.address }}/{{ ansible_eth2.ipv4.netmask }}"
+    eth3: "{{ ansible_eth3.ipv4.address }}/{{ ansible_eth3.ipv4.netmask }}"
+    eth4: "{{ ansible_eth4.ipv4.address }}/{{ ansible_eth4.ipv4.netmask }}"
+    eth5: "{{ ansible_eth5.ipv4.address }}/{{ ansible_eth5.ipv4.netmask }}"
+    eth6: "{{ ansible_eth6.ipv4.address }}/{{ ansible_eth6.ipv4.netmask }}"
   roles:
     - install
     - uninstall

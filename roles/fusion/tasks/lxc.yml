@@ -29,12 +29,12 @@
       - "lxc.net.0.link=eth1"
       - "lxc.net.0.name=eth0"
       - "lxc.net.0.flags=up"
-      - "lxc.net.0.ipv4.address={{ eth1 | ansible.utils.ipaddr('network/prefix') }}"
+      - "lxc.net.0.ipv4.address={{ eth1 | ansible.utils.ipaddr('host/prefix') }}"
       - "lxc.mount.entry = /data data none bind,create=dir 0 0"
 
 - name: Run startup commands on container
   lxc_container:
-    name: test-ubuntu
+    name: container{{  "%03d" | format(ansible_eth1.ipv4.address.split(".")[2]) }}{{  "%03d" | format(ansible_eth1.ipv4.address.split(".")[3]) }}
     container_command: |
       date 2>&1 | tee -a /var/log/container-init.log
       sleep 5 #Wait for network interfaces to fully come up

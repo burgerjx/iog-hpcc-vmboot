@@ -31,7 +31,7 @@
       - "lxc.net.0.flags=up"
       - "lxc.net.0.ipv4.address={{ item.cidr | ansible.utils.ipaddr('host/prefix') }}"
       - "lxc.mount.entry = /data data none bind,create=dir 0 0"
-    loop: "{{ containers }}"
+  loop: "{{ containers }}"
 
 - name: Startup containers
   lxc_container:
@@ -46,4 +46,4 @@
       apt-get install -y git ansible 2>&1 | tee -a /var/log/container-init.log
       git clone https://github.com/burgerjx/iog-hpcc-vmboot.git /opt/ansible 2>&1 | tee -a /var/log/container-init.log
       ansible-playbook /opt/ansible/container-ubuntu20.yml 2>&1 | tee -a /var/log/container-init.log
-    loop: "{{ containers }}"
+  loop: "{{ containers }}"

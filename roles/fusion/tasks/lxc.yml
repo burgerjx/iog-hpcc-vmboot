@@ -33,7 +33,7 @@
       - "lxc.mount.entry = /data data none bind,create=dir 0 0"
   loop: "{{ containers }}"
 
-- name: Startup containers
+- name: Start container configuration
   lxc_container:
     name: container{{  "%03d" | format(item.path.ipv4.address.split(".")[2]|int) }}{{  "%03d" | format(item.path.ipv4.address.split(".")[3]|int) }}
     container_command: |

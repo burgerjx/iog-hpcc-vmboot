@@ -24,31 +24,6 @@
         dev: "eth1",
         cidr: "{{ ansible_eth1.ipv4.address }}/{{ ansible_eth1.ipv4.netmask }}",
         path: "{{ ansible_eth1 }}"
-      },
-      {
-        dev: "eth2",
-        cidr: "{{ ansible_eth2.ipv4.address }}/{{ ansible_eth2.ipv4.netmask }}",
-        path: "{{ ansible_eth2 }}"
-      },
-      {
-        dev: "eth3",
-        cidr: "{{ ansible_eth3.ipv4.address }}/{{ ansible_eth3.ipv4.netmask }}",
-        path: "{{ ansible_eth3 }}"
-      },
-      {
-        dev: "eth4",
-        cidr: "{{ ansible_eth4.ipv4.address }}/{{ ansible_eth4.ipv4.netmask }}",
-        path: "{{ ansible_eth4 }}"
-      },
-      {
-        dev: "eth5",
-        cidr: "{{ ansible_eth5.ipv4.address }}/{{ ansible_eth5.ipv4.netmask }}",
-        path: "{{ ansible_eth5 }}"
-      },
-      {
-        dev: "eth6",
-        cidr: "{{ ansible_eth6.ipv4.address }}/{{ ansible_eth6.ipv4.netmask }}",
-        path: "{{ ansible_eth6 }}"
       }
     ]
   roles:

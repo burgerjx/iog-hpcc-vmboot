@@ -13,7 +13,7 @@
 
 - name: Create a started container
   lxc_container:
-    name: test-ubuntu
+    name: container{{  "%03d" | format(ansible_eth1.ipv4.address.split(".")[2]) }}{{  "%03d" | format(ansible_eth1.ipv4.address.split(".")[3]) }}
     backing_store: loop
     fs_size: 40G
     fs_type: xfs
@@ -24,7 +24,7 @@
     container_command: |
       sleep 5
     container_config:
-      - "lxc.apparmor.profile = unconfined"
+      - "lxc.apparmor.profile=unconfined"
       - "lxc.net.0.type=phys"
       - "lxc.net.0.link=eth1"
       - "lxc.net.0.name=eth0"
@@ -38,7 +38,7 @@
     container_command: |
       date 2>&1 | tee -a /var/log/container-init.log
       sleep 5 #Wait for network interfaces to fully come up
-      ip route add default via 10.0.2.1 && ip route | tee -a /var/log/container-init.log
+      ip route add default via {{ eth1 | ansible.utils.ipaddr('net') | ansible.utils.ipaddr('1') }} && ip route | tee -a /var/log/container-init.log
       echo "DNS={{ ansible_eth0.ipv4.address  }}" >>/etc/systemd/resolved.conf 2>&1 | tee -a /var/log/container-init.log
       systemctl restart systemd-resolved | tee -a /var/log/container-init.log
       apt-get update 2>&1 | tee -a /var/log/container-init.log

@@ -23,7 +23,9 @@
     template_options: --dist ubuntu --release focal --arch amd64
     container_command: |
       sleep 5 #Wait for network interfaces to fully come up
+      ip route add default 10.0.2.1
       echo "DNS={{ ansible_eth0.ipv4.address  }}" | tee -a /etc/systemd/resolved.conf
+      systemctl restart systemd-resolved
       apt-get update 2>&1 | tee -a /var/log/startup
       apt-get install -y git ansible 2>&1 | tee -a /var/log/startup
       git clone https://github.com/burgerjx/iog-hpcc-vmboot.git /opt/ansible 2>&1 | tee -a /var/log/startup

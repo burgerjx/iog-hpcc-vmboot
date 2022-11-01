@@ -5,6 +5,7 @@
   vars:
     install_apt:
       - net-tools
+      - openssh-server
     remove_apt: []
     install_snap: []
     remove_snap: []
@@ -13,3 +14,9 @@
     - uninstall
     - rclocal
     - gateway
+  tasks:
+    - name: Install public key for ubuntu user
+      authorized_key:
+        user: ubuntu
+        state: present
+        key: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDLV2am61R7ZnfGzJpDXoXFerdBGoHzeU0VVJUeLARbOPl1csE742G0E53ue1nN9uPCrHS2epAgSCT4RDAkZdzZtW+/9cyVP0p4a2BYg2UnK7poOvRvkesXiHaz+og6Je2Nib4pJNH+KPmh4fpdPxqoNZeUMMKRCdhP7vdRD8W5rDDhdGrpn37Qcq/RHoFlMe59VkZofYtfCD22DMx3xRFu+tyzGMAahDviICkp/tr1bOwbJhmuy+/e0Uyy887lf+yDoy/gF07DCjASc8AsGlQKskIaw2xvQxCP0A3V2Klg5cC3ac8S0hEjT8XNKk1S5j/f7/iZ+nuc37MisJ8EWv6vNgurVzYoRf76YormaDfUeFXTKKU60j03DXZLBcK/13C7PRLzIP7wMR1XuW1qskfAYfM5RUM7vf0JYs50VnNfTKWRdu2GQPt4mZ5Inpa5AcL5n+1+zmdHGeDSNNrPwfK66APj+SzhOEYpD6hYpO7V8yw+80pS0w9jvab/Qvx2++M= user@server"

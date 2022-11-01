@@ -23,7 +23,10 @@
       {
         dev: "eth1",
         cidr: "{{ ansible_eth1.ipv4.address }}/{{ ansible_eth1.ipv4.netmask }}",
-        path: "{{ ansible_eth1 }}"
+        path: "{{ ansible_eth1 }}",
+        cpus: 8,
+        mem: "32G"
+        netprio: 10
       }
     ]
   roles:

@@ -29,10 +29,9 @@
       - "lxc.net.0.flags=up"
       - "lxc.net.0.ipv4.address={{ item.cidr | ansible.utils.ipaddr('host/prefix') }}"
       - "lxc.mount.entry = /data data none bind,create=dir 0 0"
-      - "lxc.cpu.cfs_period_us = 100000"
-      - "lxc.cpu.cfs_quota_us = {{ item.cpus * 100000}}"
-      - "lxc.memory.limit_in_bytes = {{ item.mem }}"
-      - "lxc.net_prio.ifpriomap = {{ item.dev }} {{ item.netprio }}"
+      - "lxc.cgroup.cpu.cfs_period_us = 100000"
+      - "lxc.cgroup.cpu.cfs_quota_us = {{ item.cpus * 100000}}"
+      - "lxc.cgroup.memory.limit_in_bytes = {{ item.mem }}"
 
   loop: "{{ containers }}"
 

@@ -26,7 +26,6 @@
         path: "{{ ansible_eth1 }}",
         cpus: 8,
         mem: "32G"
-        netprio: 10
       }
     ]
   roles:

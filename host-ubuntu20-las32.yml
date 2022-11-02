@@ -34,4 +34,5 @@
     - rclocal
     - las32_v3_raid0
     - dnsmasq
+    - cron
     - fusion

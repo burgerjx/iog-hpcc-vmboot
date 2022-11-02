@@ -22,7 +22,7 @@
     containers: [
       {
         cpus: 8,
-        mem: "32G",
+        mem: "48G",
         mount_opts: "ro",
         dev: "eth1",
         cidr: "{{ ansible_eth1.ipv4.address }}/{{ ansible_eth1.ipv4.netmask }}",

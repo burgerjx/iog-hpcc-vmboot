@@ -32,7 +32,7 @@
       - "lxc.cgroup.cpu.cfs_period_us = 100000"
       - "lxc.cgroup.cpu.cfs_quota_us = {{ item.cpus * 100000}}"
       - "lxc.cgroup.memory.limit_in_bytes = {{ item.mem }}"
-
+      - "lxc.cgroup.memory.memsw.limit_in_bytes = {{ item.mem }}"
   loop: "{{ containers }}"
 
 - name: Start container configuration

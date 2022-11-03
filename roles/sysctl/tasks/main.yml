@@ -42,4 +42,3 @@
   sysctl:
     name: vm.zone_reclaim_mode
     value: 0
-

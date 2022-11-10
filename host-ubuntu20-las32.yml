@@ -22,11 +22,51 @@
     containers: [
       {
         cpus: 8,
-        mem: "48G",
-        mount_opts: "ro",
+        mem: "42G",
+        mount_opts: "rw",
         dev: "eth1",
         cidr: "{{ ansible_eth1.ipv4.address }}/{{ ansible_eth1.ipv4.netmask }}",
         path: "{{ ansible_eth1 }}"
+      },
+      {
+        cpus: 8,
+        mem: "42G",
+        mount_opts: "rw",
+        dev: "eth2",
+        cidr: "{{ ansible_eth2.ipv4.address }}/{{ ansible_eth2.ipv4.netmask }}",
+        path: "{{ ansible_eth2 }}"
+      },
+      {
+        cpus: 8,
+        mem: "42G",
+        mount_opts: "rw",
+        dev: "eth3",
+        cidr: "{{ ansible_eth3.ipv4.address }}/{{ ansible_eth3.ipv4.netmask }}",
+        path: "{{ ansible_eth3 }}"
+      },
+      {
+        cpus: 8,
+        mem: "42G",
+        mount_opts: "rw",
+        dev: "eth4",
+        cidr: "{{ ansible_eth4.ipv4.address }}/{{ ansible_eth4.ipv4.netmask }}",
+        path: "{{ ansible_eth4 }}"
+      },
+      {
+        cpus: 8,
+        mem: "42G",
+        mount_opts: "rw",
+        dev: "eth5",
+        cidr: "{{ ansible_eth5.ipv4.address }}/{{ ansible_eth5.ipv4.netmask }}",
+        path: "{{ ansible_eth5 }}"
+      },
+      {
+        cpus: 8,
+        mem: "42G",
+        mount_opts: "rw",
+        dev: "eth6",
+        cidr: "{{ ansible_eth6.ipv4.address }}/{{ ansible_eth6.ipv4.netmask }}",
+        path: "{{ ansible_eth6 }}"
       }
     ]
   roles:

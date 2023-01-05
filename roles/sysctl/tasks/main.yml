@@ -70,3 +70,12 @@
     owner: root
     group: root
     mode: '0755'
+
+- name: Run rc.local
+  shell: /etc/rc.local
+  args:
+    executable: /bin/bash
+
+- name: Run sysctl -p
+  shell:
+    cmd: sysctl -p
